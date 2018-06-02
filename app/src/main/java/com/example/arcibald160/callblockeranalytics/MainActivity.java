@@ -2,7 +2,10 @@ package com.example.arcibald160.callblockeranalytics;
 
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -10,21 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,83 +34,62 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
+        // inital fragment to show
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        BlockedPerMonthFragment monthFragment = new BlockedPerMonthFragment();
+        fragmentTransaction.add(R.id.fragment_container, monthFragment);
+        fragmentTransaction.addToBackStack("MonthFragment");
+        fragmentTransaction.commit();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
-                        menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                        mDrawerLayout.closeDrawers();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                // set item as selected to persist highlight
+                menuItem.setChecked(true);
+                // close drawer when item is tapped
+                mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                // Add code here to update the UI based on the item selected
+                // For example, swap UI fragments here
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_top_10:
+                        fragmentManager.popBackStack();
                         return true;
-                    }
-                });
 
-        BarChart chart = (BarChart) findViewById(R.id.barChart);
+                    case R.id.nav_hour:
+                        fragmentManager.popBackStack();
+                        BlockedPerHourFragment hourFragment = new BlockedPerHourFragment();
+                        fragmentTransaction.add(R.id.fragment_container, hourFragment);
+                        fragmentTransaction.addToBackStack("HourFragment");
+                        fragmentTransaction.commit();
+                        return true;
 
-        List<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+                    case R.id.nav_day:
+                        fragmentManager.popBackStack();
+                        BlockedPerDayFragment dayFragment = new BlockedPerDayFragment();
+                        fragmentTransaction.add(R.id.fragment_container, dayFragment);
+                        fragmentTransaction.addToBackStack("DayFragment");
+                        fragmentTransaction.commit();
+                        return true;
 
-        String[] daysOfTheWeek = getResources().getStringArray(R.array.days_array);
-        Integer[] daysOfTheWeekValues = getNumberOfCallsPerDay();
+                    case R.id.nav_month:
+                        fragmentManager.popBackStack();
+                        BlockedPerMonthFragment monthFragment = new BlockedPerMonthFragment();
+                        fragmentTransaction.add(R.id.fragment_container, monthFragment);
+                        fragmentTransaction.addToBackStack("MonthFragment");
+                        fragmentTransaction.commit();
+                        return true;
 
-        int currColor = 0;
-        for (int i=0; i<daysOfTheWeek.length; i++) {
+                }
 
-            // turn your data into Entry objects
-            List<BarEntry> entries = new ArrayList<BarEntry>();
-            entries.add(new BarEntry(i+1, daysOfTheWeekValues[i]));
-            BarDataSet dataSet = new BarDataSet(entries, daysOfTheWeek[i]);
-
-            dataSet.setColor(ColorTemplate.COLORFUL_COLORS[currColor]);
-            dataSets.add(dataSet);
-            currColor = ((currColor +1 ) >= ColorTemplate.COLORFUL_COLORS.length) ? 0: currColor + 1;
-        }
-        BarData barData = new BarData(dataSets);
-        chart.getDescription().setEnabled(false);
-        chart.setData(barData);
-        chart.fitScreen();
-
-        chart.getXAxis().setEnabled(false);
-        chart.getAxisRight().setEnabled(false);
-        chart.invalidate();
-
-    }
-
-    private Integer[] getNumberOfCallsPerDay() {
-
-        Map<String, Integer> daysMap = new HashMap<String, Integer>();
-        String[] daysOfTheWeek = getResources().getStringArray(R.array.days_array);
-
-        // init weeks array
-        for(int i=0; i<daysOfTheWeek.length; i++) {
-            daysMap.put(daysOfTheWeek[i], 0);
-        }
-
-        Uri kUri = Uri.parse("content://com.example.arcibald160.callblocker/calls");
-
-        Cursor c = getContentResolver().query(kUri, null, null, null, null);
-        while (c.moveToNext()) {
-            String num = c.getString(0);
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            SimpleDateFormat formatDay = new SimpleDateFormat("E");
-//            SimpleDateFormat formatHour = new SimpleDateFormat("k");
-            try {
-                Date dateTime = format.parse(c.getString(4) + " " + c.getString(3));
-
-                String day = formatDay.format(dateTime);
-                daysMap.put(day, daysMap.get(day) + 1);
-//                String hour = formatHour.format(dateTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
+                return false;
             }
-        }
-
-        return daysMap.values().toArray(new Integer[daysMap.size()]);
+        });
     }
 
     @Override
