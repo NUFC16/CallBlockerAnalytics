@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CallBlockerAnalytics</string>
+
+    <string name="blocked_hour">Blocked per hour</string>
+    <string name="blocked_day">Blocked per day</string>
+    <string name="blocked_month">Blocked per month</string>
+    <string name="top_10">Top 10 blocked</string>
+    <string name="header_title">CallBlocker statistics</string>
+
+    <string-array name="days_array">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+</resources>
