@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">CallBlocker</string>
+
+    <!-- TABS -->
+    <string name="recent_blocked_numbers_label">Recently</string>
+    <string name="blocked_numbers_label">Blocked</string>
+    <string name="busy_label">Busy hours</string>
+
+    <string name="unknown">Unknown</string>
+
+    <!-- add contact to blocked list -->
+    <string name="number_label">Number</string>
+    <string name="name_label">Name</string>
+    <string name="contacts_button_label">Pick from contacts</string>
+    <string name="blocked_button_label">Add to blocked list</string>
+    <string name="search_blocked_hint">Input contact name or number</string>
+
+    <!-- Toast validation warning -->
+    <string name="enter_number">Please enter a number</string>
+
+    <!-- MENU -->
+    <string name="busy_mode_label">Busy mode</string>
+
+    <!-- IMAGE DESCRIPTION -->
+    <string name="contact_img_desc">Contact image</string>
+    <string name="remove_img_desc">Remove blocked number</string>
+    <string name="missed_call_img_desc">Blocked call</string>
+
+    <!-- Days of week -->
+    <string name="monday">Mo</string>
+    <string name="tuesday">Tu</string>
+    <string name="wednesday">We</string>
+    <string name="thursday">Th</string>
+    <string name="friday">Fr</string>
+    <string name="saturday">Sa</string>
+    <string name="sunday">Su</string>
+
+    <!-- Timetable view -->
+    <string name="label_time_from">Time from</string>
+    <string name="label_time_until">Time until</string>
+    <string name="submit_timetable">Set</string>
+    <string name="switch_text">Activate</string>
+
+    <!-- BlockAll SharedPrefs -->
+    <string name="blockall">BlockAllSharedPreferences</string>
+    <string name="app_shared_preferences">CallBlockerPrefs</string>
+    <string name="stop_blockall">StopBlockAll</string>
+
+    <!-- BlockAllNotification -->
+    <string name="notification_text">All incoming calls will be blocked</string>
+
+    <!-- CallBlock BroadcastReceiver -->
+    <string name="notification_title">Call was blocked from:</string>
+    <string name="notification_channel">myNotificationChannelId</string>
+    <string name="default_fragment">FRAGMENT_ID</string>
+</resources>

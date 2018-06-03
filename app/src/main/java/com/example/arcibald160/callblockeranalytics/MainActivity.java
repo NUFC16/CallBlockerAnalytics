@@ -37,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
         // inital fragment to show
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        BlockedPerMonthFragment monthFragment = new BlockedPerMonthFragment();
-        fragmentTransaction.add(R.id.fragment_container, monthFragment);
-        fragmentTransaction.addToBackStack("MonthFragment");
+
+        Top10BlockedFragment top10Fragment = new Top10BlockedFragment();
+        fragmentTransaction.add(R.id.fragment_container, top10Fragment);
+        fragmentTransaction.addToBackStack("Top10");
         fragmentTransaction.commit();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -59,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_top_10:
                         fragmentManager.popBackStack();
+                        Top10BlockedFragment top10Fragment = new Top10BlockedFragment();
+                        fragmentTransaction.add(R.id.fragment_container, top10Fragment);
+                        fragmentTransaction.addToBackStack("Top10");
+                        fragmentTransaction.commit();
                         return true;
 
                     case R.id.nav_hour:

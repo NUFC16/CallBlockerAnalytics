@@ -8,6 +8,8 @@
     <string name="top_10">Top 10 blocked</string>
     <string name="header_title">CallBlocker statistics</string>
 
+    <string name="unknown_name">Unknown name</string>
+
     <string-array name="days_array">
         <item>Mon</item>
         <item>Tue</item>
@@ -32,4 +34,7 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
