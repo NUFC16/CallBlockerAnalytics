@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="recycler_view_row_height">70sp</dimen>
-    <dimen name="button_divider">30dp</dimen>
-    <dimen name="time_frame">80dp</dimen>
-</resources>
