@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
@@ -18,14 +17,14 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class BlockedPerMonthFragment extends Fragment {
@@ -46,7 +45,7 @@ public class BlockedPerMonthFragment extends Fragment {
         HorizontalBarChart chart = (HorizontalBarChart) view.findViewById(R.id.horizontalBarChartMonths);
 
         Integer[] blockedCallsPerMonth = getNumberOfCallsPerMonth();
-        String[] monthsLabels = getResources().getStringArray(R.array.months_array);
+        String[] monthsLabels = getContext().getResources().getStringArray(R.array.months_array);
         List<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
         final ArrayList<String> yVals = new ArrayList<String>();
 
@@ -90,7 +89,7 @@ public class BlockedPerMonthFragment extends Fragment {
 
     private Integer[] getNumberOfCallsPerMonth() {
 
-        Map<String, Integer> monthsMap = new HashMap<String, Integer>();
+        Map<String, Integer> monthsMap = new LinkedHashMap<String, Integer>();
         String[] monthsLabels = getResources().getStringArray(R.array.months_array);
 
         // init weeks array
@@ -104,7 +103,7 @@ public class BlockedPerMonthFragment extends Fragment {
         while (c.moveToNext()) {
             String num = c.getString(0);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            SimpleDateFormat formatMonth = new SimpleDateFormat("MMM");
+            SimpleDateFormat formatMonth = new SimpleDateFormat("MMMM", Locale.US);
             try {
                 Date dateTime = format.parse(c.getString(4) + " " + c.getString(3));
 

@@ -21,8 +21,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class BlockedPerDayFragment extends Fragment {
@@ -69,7 +70,7 @@ public class BlockedPerDayFragment extends Fragment {
 
     private Integer[] getNumberOfCallsPerDay() {
 
-        Map<String, Integer> daysMap = new HashMap<String, Integer>();
+        Map<String, Integer> daysMap = new LinkedHashMap<String, Integer>();
         String[] daysOfTheWeek = getResources().getStringArray(R.array.days_array);
 
         // init weeks array
@@ -83,7 +84,7 @@ public class BlockedPerDayFragment extends Fragment {
         while (c.moveToNext()) {
             String num = c.getString(0);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            SimpleDateFormat formatDay = new SimpleDateFormat("E");
+            SimpleDateFormat formatDay = new SimpleDateFormat("E", Locale.US);
             try {
                 Date dateTime = format.parse(c.getString(4) + " " + c.getString(3));
 
