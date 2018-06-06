@@ -8,6 +8,8 @@
     <string name="top_10">Top 10 blocked</string>
     <string name="header_title">CallBlocker statistics</string>
 
+    <string name="parent_app_name">com.example.arcibald160.callblocker</string>
+
     <string name="unknown_name">Unknown name</string>
 
     <string-array name="days_array">
